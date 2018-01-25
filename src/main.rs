@@ -81,16 +81,13 @@ fn main() {
             println!("time: {}, iteration: {}, diff: {}", timestamp, i, diff);
 
             img2.save(
-                &mut File::create(&Path::new("output.png")).unwrap(),
+                &mut File::create(&Path::new(".tmp.png")).unwrap(),
                 image::PNG,
-            ).expect("can not save image to output.png");
+            ).expect("can not save image to tmp.png");
 
             fs::create_dir_all("saves").expect("can not create saves folder");
-
-            img2.save(
-                &mut File::create(&Path::new(&format!("saves/{}_{}.png", timestamp, i))).unwrap(),
-                image::PNG,
-            ).expect("can not save image to saves folder");
+            fs::copy(".tmp.png", &format!("saves/{}_{}.png", timestamp, i)).expect("can not copy tmp png to saves png");
+            fs::rename(".tmp.png", "output.png").expect("can not rename tmp png to output png");
         }
 
         i += 1;
