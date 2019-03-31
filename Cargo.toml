@@ -5,6 +5,6 @@ authors = ["Alexander Thaller <alexander.thaller@trivago.com>"]
 
 [dependencies]
 chrono = "0.4"
-image = "0.18.0"
-imageproc = "0.13.0"
+image = "0.21.0"
+imageproc = "0.18.0"
 rand = "0.4.2"
