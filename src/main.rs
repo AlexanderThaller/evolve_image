@@ -7,11 +7,11 @@ use chrono::prelude::*;
 use image::{
     DynamicImage,
     GenericImage,
+    GenericImageView,
     Pixel,
 };
 use rand::Rng;
 use std::fs;
-use std::fs::File;
 use std::path::Path;
 
 fn image_diff(img1: &DynamicImage, img2: &DynamicImage) -> f64 {
@@ -80,10 +80,7 @@ fn main() {
             let timestamp = Utc::now();
             println!("time: {}, iteration: {}, diff: {}", timestamp, i, diff);
 
-            img2.save(
-                &mut File::create(&Path::new(".tmp.png")).unwrap(),
-                image::PNG,
-            ).expect("can not save image to tmp.png");
+            img2.save(".tmp.png").expect("can not save image to tmp.png");
 
             fs::create_dir_all("saves").expect("can not create saves folder");
             fs::copy(".tmp.png", &format!("saves/{}_{}.png", timestamp, i)).expect("can not copy tmp png to saves png");
